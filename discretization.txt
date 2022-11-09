@@ -1,0 +1,45 @@
+def equifreq(arr1, m):
+a = len(arr1)
+n = int(a / m)
+for i in range(0, m):
+arr = []
+for j in range(i * n, (i + 1) * n):
+if j &gt;= a:
+break
+arr = arr + [arr1[j]]
+print(f&#39;Bin {i+1} &#39;, arr)
+b1 = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+b2 = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+b3 = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+for i in range(0, len(arr1), 3):
+k = int(i/3)
+mean = int((arr1[i] + arr1[i+1] + arr1[i+2])/3)
+for j in range(3):
+b1[k][j] = int(mean)
+print(&quot;Smoothing by Mean:&quot;)
+for i in range(3):
+print(f&#39;Bin {i+1} &#39;, b1[i])
+for i in range(0, len(arr1), 3):
+k = int(i/3)
+for j in range(3):
+b2[k][j] = arr1[i+1]
+print(&quot;Smoothing by Median:&quot;)
+for i in range(3):
+print(f&#39;Bin {i+1} &#39;, b2[i])
+for i in range(0, len(arr1), 3):
+k = int(i/3)
+for j in range(3):
+if (arr1[i+j]-arr1[i]) &lt; (arr1[i+2]-arr1[i+j]):
+b3[k][j] = arr1[i]
+else:
+b3[k][j] = arr1[i+2]
+print(&quot;Smoothing by Boundaries:&quot;)
+for i in range(3):
+print(f&#39;Bin {i+1}: &#39;, b3[i])
+data = input(&quot;\nEnter dataset: &quot;)
+data = data.split(&#39;,&#39;)
+data = list(map(int, data))
+# no of bins
+m = 3
+print(&quot;Bins: &quot;)
+equifreq(data, m)
